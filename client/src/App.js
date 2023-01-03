@@ -7,6 +7,30 @@ import NavPrompt from "./components/NavPrompt";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
+  const [chatPrompt, setChatPrompt] = useState("Hello bot!");
+  const [botMessage, setBotMessage] = useState(
+    "Hey human! I am an AI. Tell me how can I help you."
+  );
+  const [inputPrompt, setInputPrompt] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("form runs");
+    async function callAPI() {
+      const response = await fetch("http://localhost:4000/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: inputPrompt }),
+      });
+      const data = await response.json();
+      console.log("data", data.botResponse);
+      setChatPrompt(inputPrompt);
+      setBotMessage(data.botResponse);
+    }
+    callAPI();
+    setInputPrompt("");
+  };
+
   return (
     <div className="App">
       <header>
@@ -49,10 +73,12 @@ function App() {
           </div>
         </nav>
       )}
+
       <aside className="sideMenu">
         <NewChat />
         <NavPrompt />
       </aside>
+
       <section className="chatBox">
         <div className="chatLog">
           <div className="chatPromptMainContainer">
@@ -74,9 +100,7 @@ function App() {
                   <circle cx={12} cy={7} r={4} />
                 </svg>
               </Avatar>
-              <div id="chatPrompt">
-                Lorem ipsum dolor sit amet aliquid porro cumque.
-              </div>
+              <div id="chatPrompt">{chatPrompt}</div>
             </div>
           </div>
           <div className="botMessageMainContainer">
@@ -96,21 +120,25 @@ function App() {
                   />
                 </svg>
               </Avatar>
-              <div id="botMessage">Lorem ipsum dolor sit amet</div>
+              <div id="botMessage">{botMessage}</div>
             </div>
           </div>
         </div>
 
-        <div className="inputPromptWrapper">
-          <textarea
-            name="inputPrompt"
-            id=""
-            className="inputPrompttTextarea"
-            type="text"
-            rows="1"
-          ></textarea>
-          <p></p>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="inputPromptWrapper">
+            <input
+              name="inputPrompt"
+              id=""
+              className="inputPrompttTextarea"
+              type="text"
+              rows="1"
+              value={inputPrompt}
+              onChange={(e) => setInputPrompt(e.target.value)}
+            ></input>
+            <p></p>
+          </div>
+        </form>
       </section>
     </div>
   );
