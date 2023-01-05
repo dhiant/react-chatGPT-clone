@@ -100,6 +100,35 @@ nav svg {
   color: #d1d5db;
   font-size: 16px;
 }
+.chatLogWrapper {
+  height: 80vh;
+  overflow-y: auto;
+}
+
+/* adding custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #575969;
+}
+::-webkit-scrollbar-thumb {
+  background-clip: content-box;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px 2px;
+  background-color: rgb(243, 241, 241);
+}
+
+::-moz-scrollbar {
+  width: 8px;
+  background-color: #575969;
+}
+::-moz-scrollbar-thumb {
+  background-clip: content-box;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px 2px;
+  background-color: rgb(243, 241, 241);
+}
 
 .chatPromptWrapper {
   max-width: 800px;
@@ -111,6 +140,7 @@ nav svg {
   align-items: center;
   column-gap: 25px;
 }
+
 .userSVG {
   transform: scale(0.6);
 }
