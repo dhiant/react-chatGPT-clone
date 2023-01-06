@@ -4,6 +4,7 @@ import { useState } from "react";
 import Avatar from "./components/Avatar";
 import NewChat from "./components/NewChat";
 import NavPrompt from "./components/NavPrompt";
+import Loading from "./components/Loading";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -130,7 +131,11 @@ function App() {
                         />
                       </svg>
                     </Avatar>
-                    <div id="botMessage">{chat.botMessage}</div>
+                    {chat.botMessage ? (
+                      <div id="botMessage">{chat.botMessage}</div>
+                    ) : (
+                      <Loading />
+                    )}
                   </div>
                 </div>
               </div>
