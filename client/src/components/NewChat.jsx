@@ -1,8 +1,14 @@
 import React from "react";
 
-const NewChat = ({ setChatLog }) => {
- return (
-    <div className="sideMenuButton" onClick={() => setChatLog([])}>
+const NewChat = ({ setChatLog, setShowMenu }) => {
+  return (
+    <div
+      className="sideMenuButton"
+      onClick={() => {
+        setChatLog([]);
+        setShowMenu(false);
+      }}
+    >
       <span>+</span>
       New chat
     </div>

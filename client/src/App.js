@@ -61,8 +61,13 @@ function App() {
       {showMenu && (
         <nav>
           <div className="navItems">
-            <NewChat setChatLog={setChatLog} />
-            <NavPrompt />
+            <NewChat setChatLog={setChatLog} setShowMenu={setShowMenu} />
+            {chatLog.map(
+              (chat, idx) =>
+                chat.botMessage && (
+                  <NavPrompt chatPrompt={chat.chatPrompt} key={idx} />
+                )
+            )}
           </div>
           <div className="navCloseIcon">
             <svg
@@ -83,7 +88,14 @@ function App() {
 
       <aside className="sideMenu">
         <NewChat setChatLog={setChatLog} />
-        <NavPrompt />
+        <div className="navPromptWrapper">
+          {chatLog.map(
+            (chat, idx) =>
+              chat.botMessage && (
+                <NavPrompt chatPrompt={chat.chatPrompt} key={idx} />
+              )
+          )}
+        </div>
       </aside>
 
       <section className="chatBox">
@@ -132,7 +144,16 @@ function App() {
                       </svg>
                     </Avatar>
                     {chat.botMessage ? (
-                      <div id="botMessage">{chat.botMessage}</div>
+                      <div id="botMessage">
+                        {chat.botMessage.split("").map((char, idx) => (
+                          <span
+                            key={idx}
+                            style={{ animationDelay: `${idx * 0.03}s` }}
+                          >
+                            {char}
+                          </span>
+                        ))}
+                      </div>
                     ) : (
                       <Loading />
                     )}
