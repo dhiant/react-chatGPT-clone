@@ -5,6 +5,7 @@ import Avatar from "./components/Avatar";
 import NewChat from "./components/NewChat";
 import NavPrompt from "./components/NavPrompt";
 import Loading from "./components/Loading";
+import Error from "./components/Error";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -15,24 +16,30 @@ function App() {
       botMessage: "Hey human! I am an AI. Tell me how can I help you.",
     },
   ]);
+  const [err, setErr] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setChatLog([...chatLog, { chatPrompt: inputPrompt }]);
     async function callAPI() {
-      const response = await fetch("http://localhost:4000/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: inputPrompt }),
-      });
-      const data = await response.json();
-      setChatLog([
-        ...chatLog,
-        {
-          chatPrompt: inputPrompt,
-          botMessage: data.botResponse,
-        },
-      ]);
+      try {
+        const response = await fetch("http://localhost:4000/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: inputPrompt }),
+        });
+        const data = await response.json();
+        setChatLog([
+          ...chatLog,
+          {
+            chatPrompt: inputPrompt,
+            botMessage: data.botResponse,
+          },
+        ]);
+        setErr(false);
+      } catch (err) {
+        setErr(err);
+      }
     }
     callAPI();
     setInputPrompt("");
@@ -87,7 +94,7 @@ function App() {
       )}
 
       <aside className="sideMenu">
-        <NewChat setChatLog={setChatLog} />
+        <NewChat setChatLog={setChatLog} setShowMenu={setShowMenu} />
         <div className="navPromptWrapper">
           {chatLog.map(
             (chat, idx) =>
@@ -154,6 +161,8 @@ function App() {
                           </span>
                         ))}
                       </div>
+                    ) : err ? (
+                      <Error err={err} />
                     ) : (
                       <Loading />
                     )}

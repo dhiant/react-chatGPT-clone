@@ -154,7 +154,7 @@ nav svg {
   text-align: left;
   display: flex;
   justify-content: left;
-  align-items: center;
+  /* align-items: center; */
   column-gap: 25px;
 }
 
@@ -172,8 +172,14 @@ nav svg {
   text-align: left;
   display: flex;
   justify-content: left;
-  align-items: center;
+  /* align-items: center; */
   column-gap: 25px;
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .openaiSVG {
