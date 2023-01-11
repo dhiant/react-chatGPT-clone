@@ -44,13 +44,16 @@ nav {
 .navPromptWrapper {
   border-bottom: 1px solid #ffffff33;
   padding: 10px;
+  height: 55vh;
+  overflow-y: auto;
 }
 .navPrompt {
   display: flex;
   align-items: center;
   padding: 10px;
-  column-gap: 5px;
+  column-gap: 20px;
   margin: 5px 0;
+  text-align: left;
 }
 .navPrompt p {
   font-size: 14px;
