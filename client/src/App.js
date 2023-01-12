@@ -11,12 +11,7 @@ import NavLinks from "./components/NavLink";
 function App() {
   const [showMenu, setShowMenu] = useState(false);
   const [inputPrompt, setInputPrompt] = useState("");
-  const [chatLog, setChatLog] = useState([
-    {
-      chatPrompt: "Hello bot!",
-      botMessage: "Hey human! I am an AI. Tell me how can I help you.",
-    },
-  ]);
+  const [chatLog, setChatLog] = useState([]);
   const [err, setErr] = useState(false);
 
   const handleSubmit = (e) => {
@@ -245,14 +240,16 @@ function App() {
                     </Avatar>
                     {chat.botMessage ? (
                       <div id="botMessage">
-                        {chat.botMessage.split("").map((char, idx) => (
-                          <span
-                            key={idx}
-                            style={{ animationDelay: `${idx * 0.03}s` }}
-                          >
-                            {char}
-                          </span>
-                        ))}
+                        <pre>
+                          {chat.botMessage.split("").map((char, idx) => (
+                            <span
+                              key={idx}
+                              style={{ animationDelay: `${idx * 0.03}s` }}
+                            >
+                              {char}
+                            </span>
+                          ))}
+                        </pre>
                       </div>
                     ) : err ? (
                       <Error err={err} />
