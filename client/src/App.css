@@ -65,9 +65,9 @@ nav {
   width: 150px;
   margin: 0;
 }
-#botMessage span,
+
 .navPrompt span {
-  animation: fadeInChar 0.5s ease-in forwards;
+  animation: fadeInChar 1s ease-in forwards;
   opacity: 0;
 }
 #botMessage pre {

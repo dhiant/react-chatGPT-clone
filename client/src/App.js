@@ -7,6 +7,7 @@ import NavPrompt from "./components/NavPrompt";
 import Loading from "./components/Loading";
 import Error from "./components/Error";
 import NavLinks from "./components/NavLink";
+import BotResponse from "./components/BotResponse";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -240,16 +241,7 @@ function App() {
                     </Avatar>
                     {chat.botMessage ? (
                       <div id="botMessage">
-                        <pre>
-                          {chat.botMessage.split("").map((char, idx) => (
-                            <span
-                              key={idx}
-                              style={{ animationDelay: `${idx * 0.03}s` }}
-                            >
-                              {char}
-                            </span>
-                          ))}
-                        </pre>
+                        <BotResponse response={chat.botMessage} />
                       </div>
                     ) : err ? (
                       <Error err={err} />
