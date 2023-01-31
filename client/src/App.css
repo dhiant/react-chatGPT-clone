@@ -131,6 +131,27 @@ nav svg {
   color: #d1d5db;
   font-size: 16px;
 }
+#introsection::before,
+#introsection::after {
+  content: "<HomePage/>";
+  float: left;
+  color: rgb(0, 134, 244);
+}
+#introsection {
+  text-align: left;
+  padding: 20px;
+}
+#introsection h1 {
+  padding-top: 20px;
+  line-height: 33px;
+}
+#introsection h2 {
+  font-size: 16px;
+  font-weight: 400;
+}
+#introsection ul {
+  list-style-type: square;
+}
 .chatLogWrapper {
   height: 80vh;
   overflow-y: auto;
@@ -212,10 +233,11 @@ nav svg {
 
 .inputPromptWrapper {
   padding: 8px;
-  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
+  position: relative;
+  padding-top: 20px;
 }
 .inputPrompttTextarea {
   width: 80%;
@@ -233,7 +255,13 @@ nav svg {
   overflow-y: hidden;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
+  .inputPromptWrapper {
+    position: absolute;
+  }
+}
+
+@media screen and (max-width: 1024px) {
   .App {
     display: block;
   }
@@ -268,5 +296,15 @@ nav svg {
   #avatar {
     width: 30px;
     height: 30px;
+  }
+  #introsection {
+    padding: 20px 20px 40px 20px;
+    font-size: 14px;
+  }
+  #introsection h1 {
+    font-size: 25px;
+  }
+  #introsection h2 {
+    font-size: 14px;
   }
 }
