@@ -1,9 +1,13 @@
 import React from "react";
+import BotResponse from "./BotResponse";
 
 const IntroSection = () => {
   return (
     <div id="introsection">
-      <h1>Introducing Talkbot - The Ultimate AI Assistant</h1>
+      <h1>
+        Introducing Talkbot
+        <BotResponse response=" - The Ultimate AI Assistant" />
+      </h1>
       <h2>
         A cutting-edge AI-powered app that provides instant answers to any
         question you may have. With Talkbot, you'll never be left searching for
