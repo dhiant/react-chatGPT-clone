@@ -308,6 +308,11 @@ nav svg {
   .botMessageWrapper {
     padding: 12px;
   }
+  .stop-messgage {
+    right: 5px;
+    font-size: 13px;
+    padding: 8px 15px;
+  }
   .userSVG {
     transform: scale(0.5);
   }

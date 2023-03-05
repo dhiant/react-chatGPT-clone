@@ -1,6 +1,6 @@
 import "./normal.css";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Avatar from "./components/Avatar";
 import NewChat from "./components/NewChat";
 import NavPrompt from "./components/NavPrompt";
@@ -15,6 +15,8 @@ function App() {
   const [inputPrompt, setInputPrompt] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [err, setErr] = useState(false);
+
+  const chatLogRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,11 +39,23 @@ function App() {
         setErr(false);
       } catch (err) {
         setErr(err);
+        console.log(err);
       }
     }
     callAPI();
     setInputPrompt("");
   };
+
+  useEffect(() => {
+    if (chatLogRef.current) {
+      chatLogRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }
+
+    return () => {};
+  }, [chatLog]);
 
   return (
     <div className="App">
@@ -200,7 +214,7 @@ function App() {
           <div className="chatLogWrapper">
             {chatLog.length > 0 &&
               chatLog.map((chat, idx) => (
-                <div className="chatLog" key={idx}>
+                <div className="chatLog" key={idx} ref={chatLogRef}>
                   <div className="chatPromptMainContainer">
                     <div className="chatPromptWrapper">
                       <Avatar bg="#5437DB" className="userSVG">
@@ -243,7 +257,10 @@ function App() {
                       </Avatar>
                       {chat.botMessage ? (
                         <div id="botMessage">
-                          <BotResponse response={chat.botMessage} />
+                          <BotResponse
+                            response={chat.botMessage}
+                            chatLogRef={chatLogRef}
+                          />
                         </div>
                       ) : err ? (
                         <Error err={err} />
