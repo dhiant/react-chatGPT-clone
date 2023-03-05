@@ -84,7 +84,11 @@ function App() {
             {chatLog.map(
               (chat, idx) =>
                 chat.botMessage && (
-                  <NavPrompt chatPrompt={chat.chatPrompt} key={idx} />
+                  <NavPrompt
+                    chatPrompt={chat.chatPrompt}
+                    key={idx}
+                    setShowMenu={setShowMenu}
+                  />
                 )
             )}
           </div>
@@ -214,7 +218,15 @@ function App() {
           <div className="chatLogWrapper">
             {chatLog.length > 0 &&
               chatLog.map((chat, idx) => (
-                <div className="chatLog" key={idx} ref={chatLogRef}>
+                <div
+                  className="chatLog"
+                  key={idx}
+                  ref={chatLogRef}
+                  id={`navPrompt-${chat.chatPrompt.replace(
+                    /[^a-zA-Z0-9]/g,
+                    "-"
+                  )}`}
+                >
                   <div className="chatPromptMainContainer">
                     <div className="chatPromptWrapper">
                       <Avatar bg="#5437DB" className="userSVG">

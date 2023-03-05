@@ -55,6 +55,12 @@ nav {
   margin: 5px 0;
   text-align: left;
 }
+.navPrompt a {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  text-decoration: none;
+}
 .navPrompt p {
   font-size: 14px;
   line-height: 20px;
