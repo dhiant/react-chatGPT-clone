@@ -14,7 +14,7 @@ A conversational AI app inspired by OpenAI's GPT-3 language model, built with Cr
 
 - Node JS
 - npm
-- [OpenAI API Key](https://beta.openai.com/signup/)
+- [Create Open AI account](https://beta.openai.com/signup/)
 
 ## Setup
 
@@ -38,7 +38,16 @@ cd server
 npm install
 ```
 
-4. Replace [your_openai_key] in 'server/.env' file with your OpenAI API key.
+4. Get your Open AI API key from [Open AI API Key](https://platform.openai.com/account/api-keys)
+
+5. Environment Variable Setup
+
+- Go to server folder and create .env file in root of server folder and create a variable REACT_APP_OPENAI_API_KEY = [ Your Open AI key here ] insise .env file as
+
+```
+REACT_APP_OPENAI_API_KEY = [Your Open AI key here]
+
+```
 
 ## Usage
 
@@ -55,6 +64,10 @@ npm start
 cd server
 node index.js
 ```
+
+- Check if your client application run on port 3000 with the development environment configuration, so in your browser just go to http://localhost:3000
+
+- Check if your server application run on port 4000
 
 ## Contribution
 
