@@ -20,7 +20,12 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setChatLog([...chatLog, { chatPrompt: inputPrompt }]);
+
+    if (inputPrompt.trim() !== "") {
+      setChatLog([...chatLog, { chatPrompt: inputPrompt }]);
+      callAPI();
+    }
+
     async function callAPI() {
       try {
         const response = await fetch("https://talk-bot.onrender.com/", {
@@ -42,7 +47,7 @@ function App() {
         console.log(err);
       }
     }
-    callAPI();
+
     setInputPrompt("");
   };
 
