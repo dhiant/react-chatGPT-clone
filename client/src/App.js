@@ -15,36 +15,43 @@ function App() {
   const [inputPrompt, setInputPrompt] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [err, setErr] = useState(false);
+  const [responseFromAPI, setReponseFromAPI] = useState(false);
 
   const chatLogRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (inputPrompt.trim() !== "") {
-      setChatLog([...chatLog, { chatPrompt: inputPrompt }]);
-      callAPI();
-    }
+    if (!responseFromAPI) {
+      if (inputPrompt.trim() !== "") {
+        // Set responseFromAPI to true before making the fetch request
+        setReponseFromAPI(true);
+        setChatLog([...chatLog, { chatPrompt: inputPrompt }]);
+        callAPI();
+      }
 
-    async function callAPI() {
-      try {
-        const response = await fetch("https://talk-bot.onrender.com/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: inputPrompt }),
-        });
-        const data = await response.json();
-        setChatLog([
-          ...chatLog,
-          {
-            chatPrompt: inputPrompt,
-            botMessage: data.botResponse,
-          },
-        ]);
-        setErr(false);
-      } catch (err) {
-        setErr(err);
-        console.log(err);
+      async function callAPI() {
+        try {
+          const response = await fetch("https://talk-bot.onrender.com/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: inputPrompt }),
+          });
+          const data = await response.json();
+          setChatLog([
+            ...chatLog,
+            {
+              chatPrompt: inputPrompt,
+              botMessage: data.botResponse,
+            },
+          ]);
+          setErr(false);
+        } catch (err) {
+          setErr(err);
+          console.log(err);
+        }
+        //  Set responseFromAPI back to false after the fetch request is complete
+        setReponseFromAPI(false);
       }
     }
 
