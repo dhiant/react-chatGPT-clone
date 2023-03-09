@@ -28,6 +28,9 @@ function App() {
         setReponseFromAPI(true);
         setChatLog([...chatLog, { chatPrompt: inputPrompt }]);
         callAPI();
+
+        // hide the keyboard in mobile devices
+        e.target.querySelector("input").blur();
       }
 
       async function callAPI() {
