@@ -318,8 +318,8 @@ function App() {
             <button aria-label="form submit" type="submit">
               <svg
                 fill="#ADACBF"
-                width={20}
-                height={25}
+                width={15}
+                height={20}
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
                 stroke="#212023"

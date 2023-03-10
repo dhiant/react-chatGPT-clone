@@ -260,7 +260,6 @@ nav svg {
 
 .inputPromptWrapper {
   margin-top: 40px;
-  padding: 8px;
   left: 50%;
   right: 50%;
   bottom: 0;
@@ -268,14 +267,14 @@ nav svg {
   transform: translate(-50%, -50%);
   width: 80%;
   max-height: 200px;
-  height: 28px;
-  padding: 10px;
+  height: 55px;
   background-color: #41414e;
   border-radius: 5px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25);
   display: flex;
 }
 .inputPrompttTextarea {
+  padding: 10px;
   flex: 1;
   resize: none;
   background-color: #41414e;
@@ -290,7 +289,7 @@ form button {
   border: none;
   position: absolute;
   top: 25%;
-  right: 25px;
+  right: 15px;
 }
 button:hover {
   cursor: pointer;
