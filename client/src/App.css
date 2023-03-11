@@ -1,8 +1,14 @@
-.App {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+:root {
+  --text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --primary-bg-color: #282c34;
+  --secondary-bg-color: #575969;
+}
+
+.App {
+  font-family: var(--text-font);
   text-align: center;
-  background-color: #282c34;
+  background-color: var(--primary-bg-color);
   color: #fff;
   display: flex;
   position: absolute;
@@ -85,8 +91,7 @@ nav {
   top: -45px;
 }
 pre {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--text-font);
 }
 @keyframes fadeInChar {
   0% {
@@ -299,6 +304,50 @@ button:hover {
   padding-right: 8px;
 }
 
+.loginContainer {
+  background: var(--primary-bg-color);
+  width: 100%;
+  height: 100%;
+  font-family: var(--text-font);
+}
+
+.loginContainerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.loginContainer h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+.loginContainer p {
+  font-size: 18px;
+  line-height: 14px;
+}
+
+.loginButtonWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+#loginButton {
+  padding: 10px 20px;
+  border-radius: 7px;
+  color: #fff;
+  background: #10a37f;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+#loginButton:hover {
+  background-color: rgb(26, 127, 100);
+}
+
 @media screen and (min-width: 768px) {
   .inputPromptWrapper {
     position: absolute;
@@ -357,5 +406,17 @@ button:hover {
   }
   #introsection h2 {
     font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .loginContainer h1 {
+    font-size: 40px;
+  }
+  .loginContainer p {
+    font-size: 25px;
+  }
+  #loginButton {
+    font-size: 22px;
   }
 }
