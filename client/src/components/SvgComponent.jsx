@@ -1,6 +1,6 @@
 import React from "react";
 
-const SvgComponent = ({ w, h }) => {
+const SvgComponent = ({ w, h, stroke }) => {
   return (
     <svg
       width={w}
@@ -8,6 +8,7 @@ const SvgComponent = ({ w, h }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       strokeWidth={1.5}
+      stroke={stroke}
       className="h-6 w-6"
     >
       <path
