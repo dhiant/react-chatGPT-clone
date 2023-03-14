@@ -1,0 +1,92 @@
+.signupFormContainer {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-family: var(--text-font);
+}
+.signupFormContainer h1 {
+  color: #2d333a;
+}
+.signupFormContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.signupFormContainer input {
+  width: 250px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.signupFormContainer input:focus {
+  outline: none;
+  border-color: #505ef6;
+}
+
+.signupFormContainer button {
+  width: 275px;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  margin-top: 5px;
+  background-color: #10a37f;
+  color: #fff;
+  cursor: pointer;
+  position: static;
+}
+
+.signupFormContainer button:hover {
+  background: #16c399;
+}
+
+.signupFormContainer span {
+  font-size: 15px;
+  color: red;
+  margin-top: 10px;
+}
+
+#signupPassword {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#signupPassword svg {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.signupSeparator::before,
+.signupSeparator::after {
+  content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+  text-decoration: line-through;
+  padding: 0 15px;
+  color: #a9acb0;
+}
+
+.signupSeparator {
+  font-size: 16px;
+  color: #2d333a;
+  padding: 20px 0;
+}
+
+#signupWithGoggle {
+  background: #fff !important;
+  color: #2d333a !important;
+  border: 1px solid #202123 !important;
+  font-size: 18px;
+  display: flex;
+  align-items: flex-start;
+  column-gap: 20px;
+}
+
+#signupWithGoggle:hover {
+  background-color: rgb(236, 236, 236) !important;
+}

@@ -2,11 +2,13 @@ function AuthReducer(state, action) {
   switch (action.type) {
     case "LOGIN": {
       return {
+        ...state,
         currentUser: action.payload,
       };
     }
-    case "SignUp": {
+    case "SIGNUP": {
       return {
+        ...state,
         currentUser: action.payload,
       };
     }

@@ -1,9 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import SvgComponent from "../components/SvgComponent";
-import { useNavigate } from "react-router-dom";
-import LoginForm from "../components/login/LoginForm";
-import { AuthContext } from "../context/AuthContext";
+import LoginForm from "../components/signup/SignUpForm";
 
 const Login = () => {
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
