@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import SvgComponent from "../components/SvgComponent";
-import LoginForm from "../components/signup/SignUpForm";
+import SignupForm from "../components/signup/SignUpForm";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+  const [isSignupFormVisible, setIsSignupFormVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleClick = async (purpose) => {
     if (purpose === "signup") {
-      setIsLoginFormVisible(true);
+      setIsSignupFormVisible(true);
+    }
+    if (purpose === "login") {
+      navigate("/login");
     }
   };
 
   return (
     <>
-      {!isLoginFormVisible ? (
+      {!isSignupFormVisible ? (
         <div className="loginContainer">
           <div className="loginContainerContent">
             <SvgComponent w={50} h={50} />
@@ -30,7 +36,7 @@ const Login = () => {
           </div>
         </div>
       ) : (
-        <LoginForm />
+        <SignupForm />
       )}
     </>
   );

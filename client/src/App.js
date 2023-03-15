@@ -2,6 +2,7 @@ import "./normal.css";
 import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import LoginForm from "./components/login/LoginForm";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -10,7 +11,7 @@ function App() {
   const { currentUser } = useContext(AuthContext);
 
   const RequireAuth = ({ children }) => {
-    return currentUser ? children : <Navigate to="login" />;
+    return currentUser ? children : <Navigate to="auth/login" />;
   };
 
   return (
@@ -26,7 +27,8 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route exact path="login" element={<Login />} />
+        <Route exact path="auth/login" element={<Login />} />
+        <Route exact path="login" element={<LoginForm />} />
       </Routes>
     </div>
   );
