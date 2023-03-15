@@ -319,6 +319,10 @@ button:hover {
   height: 100%;
 }
 
+.loginContainerContent svg {
+  padding-bottom: 30px;
+}
+
 .loginContainer h1 {
   font-size: 30px;
   margin: 0;
@@ -326,17 +330,18 @@ button:hover {
 
 .loginContainer p {
   font-size: 18px;
-  line-height: 14px;
+  line-height: 5px;
 }
 
 .loginButtonWrapper {
   display: flex;
   align-items: center;
   column-gap: 15px;
+  margin-top: 20px;
 }
 
 #loginButton {
-  padding: 10px 20px;
+  padding: 10px 25px;
   border-radius: 7px;
   color: #fff;
   background: #10a37f;
