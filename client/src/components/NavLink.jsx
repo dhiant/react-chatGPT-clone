@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase.config";
+import { AuthContext } from "../context/AuthContext";
 
 const NavLinks = ({ svg, link, text, setChatLog }) => {
-  const handleClick = (text) => {
+  const { dispatch } = useContext(AuthContext);
+
+  const handleClick = async (text) => {
     if (text === "Clear Conversations") setChatLog([]);
+    if (text === "Log out") {
+      try {
+        let logOut = await signOut(auth);
+        console.log("logOut", logOut);
+        dispatch({ type: "LOGOUT" });
+      } catch (error) {
+        console.log("error happen during sign out", error);
+      }
+    }
   };
+
   return (
     <a
       href={link}
-      target="_blank"
+      target={link && "_blank"}
       rel="noreferrer"
       style={{ textDecoration: "none" }}
       onClick={() => handleClick(text)}

@@ -12,6 +12,11 @@ function AuthReducer(state, action) {
         currentUser: action.payload,
       };
     }
+    case "LOGOUT": {
+      return {
+        currentUser: "",
+      };
+    }
     default: {
       return state;
     }
