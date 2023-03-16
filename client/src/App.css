@@ -34,12 +34,13 @@ header h1 {
 nav {
   display: none;
   background-color: #4c4f5f;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 999;
+  height: 100vh;
 }
 .navItems {
   padding: 8px;
