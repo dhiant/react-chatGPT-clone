@@ -294,15 +294,18 @@ form button {
   background: rgb(65, 65, 78);
   border: none;
   position: absolute;
-  top: 25%;
+  top: 20%;
   right: 15px;
+  width: 35px;
+  height: 35px;
 }
-button:hover {
-  cursor: pointer;
-  background: #212023;
-  border-radius: 20%;
-  padding: 4px;
-  padding-right: 8px;
+
+@media (hover: hover) {
+  button:hover {
+    cursor: pointer;
+    background: #212023;
+    border-radius: 20%;
+  }
 }
 
 .loginContainer {
