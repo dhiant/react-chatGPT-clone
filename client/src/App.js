@@ -23,7 +23,7 @@ function App() {
           path="/"
           element={
             <RequireAuth>
-              <Home />/
+              <Home />
             </RequireAuth>
           }
         />
