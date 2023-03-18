@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import "./signupform.css";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, goggleAuthProvider } from "../../firebase.config";
+import { auth, db, goggleAuthProvider } from "../../firebase.config";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import SvgComponent from "../SvgComponent";
+import { addDoc, collection } from "firebase/firestore";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const SignupForm = () => {
   const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
@@ -26,6 +27,15 @@ const SignupForm = () => {
       );
       const user = userCredential.user;
       dispatch({ type: "SIGNUP", payload: user });
+
+      // add user to firebase database
+      const docRef = await addDoc(collection(db, "users"), {
+        email,
+        password,
+        date_of_sign_up: new Date(),
+      });
+      console.log("Document written with ID: ", docRef.id);
+
       // once user is signed in navigate them to the home page
       navigate("/");
     } catch (error) {
@@ -42,6 +52,17 @@ const SignupForm = () => {
       const user = userCredential.user;
       dispatch({ type: "SIGNUP", payload: user });
       console.log("user", user);
+
+      // data when user signup with goggle account
+      const email = user.email;
+      const user_ID_from_Goggle_Sign_up = user.uid;
+      // add user to firebase database
+      const docRef = await addDoc(collection(db, "users"), {
+        email,
+        user_ID_from_Goggle_Sign_up,
+        date_of_sign_up: new Date(),
+      });
+      console.log("Document written with ID: ", docRef.id);
       // once user is signed in navigate them to the home page
       navigate("/");
     } catch (error) {
@@ -56,7 +77,7 @@ const SignupForm = () => {
     <div className="signupFormContainer">
       <SvgComponent w={50} h={50} stroke="#202123" />
       <h1>Create your account</h1>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSignup}>
         <input
           type="email"
           name="email"

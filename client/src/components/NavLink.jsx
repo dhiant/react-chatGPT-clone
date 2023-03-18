@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase.config";
 import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const NavLinks = ({ svg, link, text, setChatLog }) => {
   const { dispatch } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const NavLinks = ({ svg, link, text, setChatLog }) => {
   };
 
   return (
-    <a
+    <Link
       href={link}
       target={link && "_blank"}
       rel="noreferrer"
@@ -31,7 +32,7 @@ const NavLinks = ({ svg, link, text, setChatLog }) => {
         {svg}
         <p>{text}</p>
       </div>
-    </a>
+    </Link>
   );
 };
 
