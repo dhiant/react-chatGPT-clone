@@ -22,7 +22,7 @@ const NavLinks = ({ svg, link, text, setChatLog }) => {
 
   return (
     <Link
-      href={link}
+      to={link}
       target={link && "_blank"}
       rel="noreferrer"
       style={{ textDecoration: "none" }}

@@ -51,7 +51,7 @@ nav {
 .navPromptWrapper {
   border-bottom: 1px solid #ffffff33;
   padding: 10px;
-  height: calc(100vh - 280px);
+  height: calc(100vh - 330px);
   overflow-y: auto;
 }
 .navPrompt {
