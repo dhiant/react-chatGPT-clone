@@ -18,6 +18,8 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("INPUT: ", inputPrompt);
+    console.log("RESPONSE FROM API: ", responseFromAPI);
 
     if (!responseFromAPI) {
       if (inputPrompt.trim() !== "") {
@@ -32,19 +34,19 @@ const Home = () => {
 
       async function callAPI() {
         try {
-          const response = await fetch("https://talk-bot.onrender.com/", {
+          const response = await fetch("http://localhost:4000/respond", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: inputPrompt }),
           });
           const data = await response.json();
-          setChatLog([
-            ...chatLog,
-            {
-              chatPrompt: inputPrompt,
-              botMessage: data.botResponse,
-            },
+          console.log("DATAAA: ", data);
+
+          setChatLog((currentChatLog) => [
+            ...currentChatLog,
+            { chatPrompt: inputPrompt, botMessage: data.botResponse },
           ]);
+
           setErr(false);
         } catch (err) {
           setErr(err);
