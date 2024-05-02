@@ -1,33 +1,42 @@
 require("dotenv").config();
-
+const { OpenAI } = require("openai");
 const express = require("express");
-const app = express();
-const port = 4000;
-
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
-
-// adding body-parser and cors
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+// Initialize express app
+const app = express();
+const port = 4000;
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // This is also the default, can be omitted
+});
+// Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post("/", async (req, res) => {
-  const { message } = req.body;
-  const response = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: message,
-    max_tokens: 3000,
-    temperature: 0.3,
-  });
-  res.json({ botResponse: response.data.choices[0].text });
+// Route to handle POST requests
+app.post("/respond", async (req, res) => {
+  try {
+    const { message } = req.body;
+    console.log("MESSAGE: ", message);
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: message }],
+    });
+
+    console.log("PASSED");
+    console.log("OpenAI Response:", chatCompletion.choices[0].message.content);
+
+    // Send the ChatGPT response back to the client
+    res.json({ botResponse: chatCompletion.choices[0].message.content });
+  } catch (error) {
+    console.error("Error calling OpenAI:", error);
+    res.status(500).json({ error: "Failed to generate response from OpenAI" });
+  }
 });
 
+// Start the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });

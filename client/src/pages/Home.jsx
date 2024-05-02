@@ -12,62 +12,55 @@ const Home = () => {
   const [inputPrompt, setInputPrompt] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [err, setErr] = useState(false);
-  const [responseFromAPI, setReponseFromAPI] = useState(false);
+  const [responseFromAPI, setResponseFromAPI] = useState(false);
 
-  const chatLogRef = useRef(null);
+  const chatLogEndRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!responseFromAPI && inputPrompt.trim() !== "") {
+      const newChatLogEntry = { chatPrompt: inputPrompt, botMessage: null };
+      setChatLog((prevChatLog) => [...prevChatLog, newChatLogEntry]);
 
-    if (!responseFromAPI) {
-      if (inputPrompt.trim() !== "") {
-        // Set responseFromAPI to true before making the fetch request
-        setReponseFromAPI(true);
-        setChatLog([...chatLog, { chatPrompt: inputPrompt }]);
-        callAPI();
+      // hide the keyboard in mobile devices
+      e.target.querySelector("input").blur();
 
-        // hide the keyboard in mobile devices
-        e.target.querySelector("input").blur();
-      }
+      setInputPrompt(""); // Clear input after submitting
+      setResponseFromAPI(true); // Indicate that a response is being awaited
 
-      async function callAPI() {
-        try {
-          const response = await fetch("https://talk-bot.onrender.com/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: inputPrompt }),
-          });
-          const data = await response.json();
-          setChatLog([
-            ...chatLog,
-            {
-              chatPrompt: inputPrompt,
-              botMessage: data.botResponse,
-            },
-          ]);
-          setErr(false);
-        } catch (err) {
-          setErr(err);
-          console.log(err);
-        }
-        //  Set responseFromAPI back to false after the fetch request is complete
-        setReponseFromAPI(false);
+      try {
+        const response = await fetch("http://localhost:4000/respond", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: inputPrompt }),
+        });
+        const data = await response.json();
+
+        // Update chat log with the new response
+        setChatLog((prevChatLog) => [
+          ...prevChatLog.slice(0, prevChatLog.length - 1), // all entries except the last
+          { ...newChatLogEntry, botMessage: data.botResponse }, // update the last entry with the bot's response
+        ]);
+
+        setErr(false);
+      } catch (error) {
+        setErr(error);
+        console.error(error);
+      } finally {
+        setResponseFromAPI(false); // Reset after receiving the response
       }
     }
-
-    setInputPrompt("");
   };
 
   useEffect(() => {
-    if (chatLogRef.current) {
-      chatLogRef.current.scrollIntoView({
+    // Scroll to the bottom of the chat log to show the latest message
+    if (chatLogEndRef.current) {
+      chatLogEndRef.current.scrollIntoView({
         behavior: "smooth",
         block: "end",
       });
     }
-
-    return () => {};
-  }, []);
+  }, [chatLog]);
 
   return (
     <>
@@ -127,61 +120,36 @@ const Home = () => {
       <section className="chatBox">
         {chatLog.length > 0 ? (
           <div className="chatLogWrapper">
-            {chatLog.length > 0 &&
-              chatLog.map((chat, idx) => (
-                <div
-                  className="chatLog"
-                  key={idx}
-                  ref={chatLogRef}
-                  id={`navPrompt-${chat.chatPrompt.replace(
-                    /[^a-zA-Z0-9]/g,
-                    "-"
-                  )}`}
-                >
-                  <div className="chatPromptMainContainer">
-                    <div className="chatPromptWrapper">
-                      <Avatar bg="#5437DB" className="userSVG">
-                        <svg
-                          stroke="currentColor"
-                          fill="none"
-                          strokeWidth={1.9}
-                          viewBox="0 0 24 24"
-                          // strokeLinecap="round"
-                          // strokeLinejoin="round"
-                          className="h-6 w-6"
-                          height={40}
-                          width={40}
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx={12} cy={7} r={4} />
-                        </svg>
-                      </Avatar>
-                      <div id="chatPrompt">{chat.chatPrompt}</div>
-                    </div>
-                  </div>
-
-                  <div className="botMessageMainContainer">
-                    <div className="botMessageWrapper">
-                      <Avatar bg="#11a27f" className="openaiSVG">
-                        <SvgComponent w={41} h={41} />
-                      </Avatar>
-                      {chat.botMessage ? (
-                        <div id="botMessage">
-                          <BotResponse
-                            response={chat.botMessage}
-                            chatLogRef={chatLogRef}
-                          />
-                        </div>
-                      ) : err ? (
-                        <Error err={err} />
-                      ) : (
-                        <Loading />
-                      )}
-                    </div>
+            {chatLog.map((chat, idx) => (
+              <div className="chatLog" key={chat.id} id={`chat-${chat.id}`}>
+                {/* User message */}
+                <div className="chatPromptMainContainer">
+                  <div className="chatPromptWrapper">
+                    <Avatar bg="#5437DB" className="userSVG">
+                      {/* User avatar */}
+                    </Avatar>
+                    <div id="chatPrompt">{chat.chatPrompt}</div>
                   </div>
                 </div>
-              ))}
+                {/* Bot response */}
+                <div className="botMessageMainContainer">
+                  <div className="botMessageWrapper">
+                    <Avatar bg="#11a27f" className="openaiSVG">
+                      {/* Bot avatar */}
+                    </Avatar>
+                    {chat.botMessage === "Loading..." ? (
+                      <Loading />
+                    ) : err ? (
+                      <Error err={err} />
+                    ) : (
+                      <div id="botMessage">{chat.botMessage}</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div ref={chatLogEndRef} />{" "}
+            {/* Invisible element to scroll into view */}
           </div>
         ) : (
           <IntroSection />
